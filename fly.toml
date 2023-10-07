@@ -1,0 +1,37 @@
+# fly.toml app configuration file generated for sismart-mito-app on 2023-10-01T13:45:35+07:00
+#
+# See https://fly.io/docs/reference/configuration/ for information about how to use this file.
+#
+
+app = "sismart-mito-app"
+primary_region = "sin"
+console_command = "php /var/www/html/artisan tinker"
+
+[build]
+  [build.args]
+    NODE_VERSION = "18"
+    PHP_VERSION = "8.2"
+
+[env]
+  APP_ENV = "production"
+  DB_CONNECTION = "mysql"
+  DB_HOST = "app-sismart-mysql.internal Address"
+  DB_PORT = "3306"
+  DB_DATABASE= "sismart"
+  DB_USERNAME= "sismart"
+  DB_PASSWORD= "usermito"
+  LOG_CHANNEL = "stderr"
+  LOG_LEVEL = "info"
+  LOG_STDERR_FORMATTER = "Monolog\\Formatter\\JsonFormatter"
+  SESSION_DRIVER = "cookie"
+  SESSION_SECURE_COOKIE = "true"
+  APP_URL = "https://sismart-mito-app.fly.dev"
+  ASSET_URL = "https://sismart-mito-app.fly.dev"
+
+[http_service]
+  internal_port = 8080
+  force_https = true
+  auto_stop_machines = true
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["app"]
