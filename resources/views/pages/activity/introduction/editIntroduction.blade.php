@@ -11,12 +11,12 @@
                     @csrf
                     @method('PUT')
                     <div class="col-md-5">
-                        <label for="prospect_id" class="form-label">Code Prospect</label>
+                        <label for="prospect_id" class="form-label">Customer</label>
                         <select class="form-select select2-bootstrap-5" id="prospect_id" name="prospect_id"
-                            data-placeholder="Type for search..." required>
+                            data-placeholder="Choose customer..." required>
                             <option></option>
                             @foreach ($prospects as $prospect)
-                                <option value="{{ $prospect->id }}" {{ $introduction->prospect_id == $prospect->id ? 'selected' : '' }}>{{ $prospect->code_prospect }}</option>
+                                <option value="{{ $prospect->id }}" {{ $introduction->prospect_id == $prospect->id ? 'selected' : '' }}>{{ $prospect->code_prospect .' | '. $prospect->customer->name_customer }}</option>
                             @endforeach
                         </select>
                     </div>

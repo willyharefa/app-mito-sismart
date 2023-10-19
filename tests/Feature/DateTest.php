@@ -14,8 +14,9 @@ class DateTest extends TestCase
      */
     public function test_example(): void
     {
-        $knownDate = Carbon::now()->format('Y/m');
-        echo $knownDate; 
+        // $knownDate = Carbon::now()->format('Y/m');
+        $getYear = date('m');
+        echo $getYear; 
 
     }
 }

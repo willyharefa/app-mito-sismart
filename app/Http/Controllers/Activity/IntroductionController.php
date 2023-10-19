@@ -18,8 +18,8 @@ class IntroductionController extends Controller
      */
     public function index()
     {
-        $introductions = Introduction::with('prospect', 'branch')->get();
-        $prospects = Prospect::with('customer', 'branch')->where('status_prospect', 'Mapping')->get();
+        $introductions = Introduction::with('prospect', 'branch')->latest()->get();
+        $prospects = Prospect::with('customer', 'branch')->where('status_prospect', 'Mapping')->latest()->get();
         return view('pages.activity.introduction.introduction', [
             'state_menu' => 'activity',
             'menu_title' => 'Menu Introduction',
@@ -50,11 +50,7 @@ class IntroductionController extends Controller
                 return redirect()->back()->withErrors($validatedData)->withInput();
             }
 
-            $getDate = Carbon::now()->format('Y/m');
-            $request['code_introduction'] = 'INT/PKU/'. $getDate.'/'.rand(1, 999);
-
             Introduction::create([
-                'code_introduction' => $request->code_introduction,
                 'prospect_id' => $request->prospect_id,
                 'date_introduction' => $request->date_introduction,
                 'remark' => $request->remark,

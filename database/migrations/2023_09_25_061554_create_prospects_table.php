@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('cp_customer');
             $table->date('date_start');
             $table->string('type_service');
-            $table->string('pic_sales');
-            $table->enum('status_prospect',['Done','Progress', 'Mapping', 'Introduction', 'Penetration', 'Jartest', 'Quotation', 'Negotiation', 'Deals PO', 'Supply & Maintenance']);
+            $table->foreignId('user_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
+            $table->enum('status_prospect',['Done','Progress', 'Mapping', 'Introduction', 'Penetration', 'Jartest', 'Quotation', 'Deals PO', 'Supply & Maintenance'])->default('Progress');
             $table->foreignId('branch_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });

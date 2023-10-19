@@ -20,12 +20,12 @@
                     @csrf
                     @method('POST')
                     <div class="col-md-5">
-                        <label for="prospect_id" class="form-label">Code Prospect</label>
+                        <label for="prospect_id" class="form-label">Customer</label>
                         <select class="form-select select2-bootstrap-5" id="prospect_id" name="prospect_id"
-                            data-placeholder="Type for search..." required>
+                            data-placeholder="Choose customer..." required>
                             <option></option>
                             @foreach ($prospects as $prospect)
-                                <option value="{{ $prospect->id }}">{{ $prospect->code_prospect }}</option>
+                                <option value="{{ $prospect->id }}">{{ $prospect->code_prospect .' | '. $prospect->customer->name_customer }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -58,9 +58,9 @@
                         <thead>
                             <tr>
                                 <th data-priority="0">#</th>
-                                <th data-priority="1">Code Introduction</th>
-                                <th data-priority="1">Code Prospect</th>
-                                <th data-priority="2">Date Introduction</th>
+                                <th data-priority="1">ID Project</th>
+                                <th data-priority="1">Customer</th>
+                                <th data-priority="2">Date</th>
                                 <th data-priority="5">Remarks</th>
                                 <th data-priority="4">Status </th>
                                 <th data-priority="3">Actions</th>
@@ -70,13 +70,13 @@
                             @foreach ($introductions as $key => $introduction)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $introduction->code_introduction }}</td>
                                     <td>
                                         <a href="javascript:void(0)">
                                             {{ $introduction->prospect->code_prospect }}
                                         </a>
                                         
                                     </td>
+                                    <td>{{ $introduction->prospect->customer->name_customer }}</td>
                                     <td>{{ $introduction->date_introduction->format('d/m/Y') }}</td>
                                     <td>{{ $introduction->remark }}</td>
                                     <td>
@@ -92,19 +92,21 @@
                                             <span class="tf-icons bx bx-info-circle"></span>
                                         </a>
 
-                                        <a class="btn btn-icon btn-outline-primary"
-                                            href="{{ route('introduction.edit', $introduction->id) }}" title="Edit">
-                                            <span class="tf-icons bx bx-message-square-edit"></span>
-                                        </a>
+                                        @if ($introduction->status_introduction !== "Done")
+                                            <a class="btn btn-icon btn-outline-primary"
+                                                href="{{ route('introduction.edit', $introduction->id) }}" title="Edit">
+                                                <span class="tf-icons bx bx-message-square-edit"></span>
+                                            </a>
 
-                                        <form action="{{ route('introduction.destroy', $introduction->id) }}"
-                                            class="d-inline-block form-destroy" method="POST">
-                                            @csrf
-                                            @method('DELETE')
-                                            <button type="submit" class="btn btn-icon btn-outline-danger">
-                                                <span class="tf-icons bx bx-trash-alt"></span>
-                                            </button>
-                                        </form>
+                                            <form action="{{ route('introduction.destroy', $introduction->id) }}"
+                                                class="d-inline-block form-destroy" method="POST">
+                                                @csrf
+                                                @method('DELETE')
+                                                <button type="submit" class="btn btn-icon btn-outline-danger">
+                                                    <span class="tf-icons bx bx-trash-alt"></span>
+                                                </button>
+                                            </form>
+                                        @endif
                                     </td>
                                 </tr>
                             @endforeach

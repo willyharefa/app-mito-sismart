@@ -16,7 +16,7 @@
                             data-placeholder="Type for search..." required>
                             <option></option>
                             @foreach ($prospects as $prospect)
-                                <option value="{{ $prospect->id }}" {{ $jartest->prospect_id == $prospect->id ? 'selected' : ''}} {{ old('prospect_id') == $prospect->id ? 'selected' : ''}}>{{ $prospect->code_prospect }}</option>
+                                <option value="{{ $prospect->id }}" {{ $jartest->prospect_id == $prospect->id ? 'selected' : ''}} {{ old('prospect_id') == $prospect->id ? 'selected' : ''}}>{{ $prospect->code_prospect .' | '. $prospect->customer->name_customer }}</option>
                             @endforeach
                         </select>
                     </div>

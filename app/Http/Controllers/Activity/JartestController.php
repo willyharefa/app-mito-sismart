@@ -20,7 +20,7 @@ class JartestController extends Controller
     {
         $stocks = Stock::with('branch')->where('branch_id', 1)->get();
         $jartests = Jartest::with('prospect', 'branch')->where('branch_id', 1)->get();
-        $prospects = Prospect::with('customer', 'branch')->where('status_prospect', 'Penetration')->get();
+        $prospects = Prospect::with('customer', 'branch')->where('status_prospect', 'Penetration')->latest()->get();
         return view('pages.activity.jartest.jartest', [
             'state_menu' => 'activity',
             'menu_title' => 'Menu Jartest',
@@ -53,11 +53,7 @@ class JartestController extends Controller
                 return redirect()->back()->withErrors($validatedData)->withInput();
             }
 
-            $getDate = Carbon::now()->format('Y/m');
-            $request['code_jartest'] = 'JAR/PKU/'. $getDate.'/'.rand(1, 999);
-
             Jartest::create([
-                'code_jartest' => $request->code_jartest,
                 'prospect_id' => $request->prospect_id,
                 'stock_id' => $request->stock_id,
                 'date_jartest' => $request->date_jartest,
@@ -94,7 +90,7 @@ class JartestController extends Controller
     public function edit(Jartest $jartest)
     {
         $stocks = Stock::with('branch')->where('branch_id', 1)->get();
-        $prospects = Prospect::with('customer', 'branch')->where('status_prospect', 'Jartest')->get();
+        $prospects = Prospect::with('customer', 'branch')->where('status_prospect', 'Jartest')->latest()->get();
         return view('pages.activity.jartest.editJartest', [
             'state_menu' => 'activity',
             'menu_title' => 'Edit Jartest',

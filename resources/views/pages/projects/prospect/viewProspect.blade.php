@@ -40,7 +40,7 @@
                     </div>
                     <div class="col-md mb-4">
                         <label for="pic_sales" class="form-label">PIC Sales</label>
-                        <input type="text" class="form-control" id="pic_sales" readonly value="{{ $prospect->pic_sales }}">
+                        <input type="text" class="form-control" id="pic_sales" readonly value="{{ $prospect->user->name }}">
                     </div>
                     <div class="col-12">
                         <a href="{{ route('prospect.index') }}" class="btn btn-outline-secondary" id="submit-input">Back</a>

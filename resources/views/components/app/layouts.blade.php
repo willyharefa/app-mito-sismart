@@ -256,11 +256,6 @@
                                     <div>Quotation</div>
                                 </a>
                             </li>
-                            <li class="menu-item {{ $menu_title == "Menu Negotiation" ? "active bx-flashing" : "" }}">
-                                <a href="{{ route('negotiation.index') }}" class="menu-link">
-                                    <div>Negotiation</div>
-                                </a>
-                            </li>
                             <li class="menu-item {{ $menu_title == "Menu Deals" ? "active bx-flashing" : "" }}">
                                 <a href="{{ route('deal.index') }}" class="menu-link">
                                     <div>Deals PO</div>
@@ -293,26 +288,31 @@
                             </li>
                             <li class="menu-item {{ $menu_title == "Type Customer Setting" ? "active bx-flashing" : "" }}">
                                 <a href="{{ route('type-customer.index') }}" class="menu-link">
-                                    <div>Type Customers</div>
+                                    <div>Customers</div>
                                 </a>
                             </li>
                             <li class="menu-item {{ $menu_title == "Type Progress Setting" ? "active bx-flashing" : "" }}">
                                 <a href="{{ route('type-progress.index') }}" class="menu-link">
-                                    <div>Type Progress</div>
+                                    <div>Progress</div>
+                                </a>
+                            </li>
+                            <li class="menu-item {{ $menu_title == "Menu Position" ? "active bx-flashing" : "" }}">
+                                <a href="{{ route('position.index') }}" class="menu-link">
+                                    <div>Position</div>
                                 </a>
                             </li>
                         </ul>
                     </li>
 
-                    <li class="menu-item">
+                    <li class="menu-item {{ $state_menu == "authentication" ? "active open" : "" }}">
                         <a href="javascript:void(0);" class="menu-link menu-toggle">
                             <i class="menu-icon tf-icons bx bx-folder"></i>
                             <div>Authentication</div>
                         </a>
 
                         <ul class="menu-sub">
-                            <li class="menu-item">
-                                <a href="javascript:void(0);" class="menu-link">
+                            <li class="menu-item {{ $menu_title == "Menu Users" ? "active bx-flashing" : "" }}">
+                                <a href="{{ route('user.index') }}" class="menu-link">
                                     <div>Users</div>
                                 </a>
                             </li>
@@ -473,7 +473,7 @@
     <script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
 
-    @if (request()->routeIs('type-progress.index'))
+    @if (request()->routeIs(['type-progress.index', 'position.index']))
         @stack('script')
     @else
         <script>

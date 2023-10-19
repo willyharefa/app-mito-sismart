@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('mappings', function (Blueprint $table) {
             $table->id();
-            $table->string('code_mapping')->unique();
             $table->foreignId('prospect_id')->unique()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->date('date_mapping');
             $table->enum('status_mapping', ['Progress', 'Done'])->default('Progress');

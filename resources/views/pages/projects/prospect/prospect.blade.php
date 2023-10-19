@@ -22,7 +22,7 @@
                     <div class="col-md-5">
                         <label for="customer_id" class="form-label">Customer</label>
                         <select class="form-select select2-bootstrap-5" id="customer_id" name="customer_id"
-                            data-placeholder="Type for search..." required>
+                            data-placeholder="Choose customer..." required>
                             <option></option>
                             @foreach ($customers as $customer)
                                 <option value="{{ $customer->id }}">{{ $customer->name_customer }}</div></option>
@@ -50,10 +50,15 @@
                         <input type="text" class="form-control" id="type_service" name="type_service"
                             placeholder="General Chemical" required>
                     </div>
-                    <div class="col-md">
-                        <label for="pic_sales" class="form-label">PIC Sales</label>
-                        <input type="text" class="form-control" id="pic_sales" name="pic_sales"
-                            placeholder="Dwi Purwanti" required>
+                    <div class="col-md-4">
+                        <label for="user_id" class="form-label">PIC Sales</label>
+                        <select class="form-select select2-bootstrap-5" id="user_id" name="user_id"
+                            data-placeholder="Choose sales..." required>
+                            <option></option>
+                            @foreach ($sales as $item)
+                                <option value="{{ $item->id }}" {{ old('user_id') == $item->position_id ? "selected" : "" }}>{{ $item->nickname }}</option>
+                            @endforeach
+                        </select>
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary" id="submit-input">Create Prospect</button>
@@ -68,11 +73,11 @@
             <h5 class="card-header">Data Prospect</h5>
             <div class="card-body">
                 <div class="text-nowrap">
-                    <table class="table table-bordered table-branches table-sm" id="table" style="width:100%">
+                    <table class="table table-bordered" id="table" style="width:100%">
                         <thead>
                             <tr>
                                 <th data-priority="0">#</th>
-                                <th data-priority="2">Code Prospect</th>
+                                <th data-priority="2">ID Project</th>
                                 <th data-priority="1">Customer</th>
                                 <th data-priority="9">Type Service</th>
                                 <th data-priority="3">Date Start</th>
@@ -91,7 +96,7 @@
                                     <td>{{ $prospect->type_service }}</td>
                                     <td>{{ date('d/m/Y', strtotime($prospect->date_start)) }}</td>
                                     <td>{{ $prospect->cp_customer }}</td>
-                                    <td>{{ $prospect->pic_sales }}</td>
+                                    <td>{{ $prospect->user->name }}</td>
                                     <td>
                                         @if ($prospect->status_prospect == 'Progress')
                                             <span class="badge bg-warning">{{ $prospect->status_prospect }}</span>

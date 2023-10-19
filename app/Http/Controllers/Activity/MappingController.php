@@ -17,8 +17,8 @@ class MappingController extends Controller
      */
     public function index()
     {
-        $mappings = Mapping::all();
-        $prospects = Prospect::with('customer', 'branch')->where('status_prospect', 'Progress')->get();
+        $mappings = Mapping::with(['prospect', 'branch'])->latest()->get();
+        $prospects = Prospect::with('customer', 'branch')->where('status_prospect', 'Progress')->latest()->get();
         return view('pages.activity.mapping.mapping', [
             'state_menu' => 'activity',
             'menu_title' => 'Menu Mapping',
@@ -49,11 +49,7 @@ class MappingController extends Controller
                 return redirect()->back()->withErrors($validatedData)->withInput();
             }
 
-            $getDate = Carbon::now()->format('Y/m');
-            $request['code_mapping'] = 'MAP/PKU/'. $getDate.'/'.rand(1, 999);
-
             Mapping::create([
-                'code_mapping' => $request->code_mapping,
                 'prospect_id' => $request->prospect_id,
                 'date_mapping' => $request->date_mapping,
                 'remark' => $request->remark,

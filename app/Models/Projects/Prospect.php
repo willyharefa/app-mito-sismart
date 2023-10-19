@@ -5,11 +5,11 @@ namespace App\Models\Projects;
 use App\Models\Activity\Deal;
 use App\Models\Activity\Introduction;
 use App\Models\Activity\Mapping;
-use App\Models\Activity\Negotiation;
 use App\Models\Activity\Penetration;
 use App\Models\Activity\Quotation;
 use App\Models\Partner\Customer;
 use App\Models\Setting\Branch;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -21,6 +21,11 @@ class Prospect extends Model
     protected $guarded = ['id'];
     protected $dates = ['date_start'];
     protected $tables = 'prospects';
+
+    public function user(): HasOne
+    {
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
 
     public function customer(): HasOne
     {
@@ -50,11 +55,6 @@ class Prospect extends Model
     public function quotation(): BelongsTo
     {
         return $this->belongsTo(Quotation::class, 'id', 'prospect_id');
-    }
-
-    public function negotiation(): BelongsTo
-    {
-        return $this->belongsTo(Negotiation::class, 'id', 'prospect_id');
     }
 
     public function deal(): BelongsTo

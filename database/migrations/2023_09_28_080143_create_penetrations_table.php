@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('penetrations', function (Blueprint $table) {
             $table->id();
-            $table->string('code_penetration')->unique();
             $table->foreignId('prospect_id')->unique()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->date('date_penetration');
             $table->enum('status_penetration', ['Progress', 'Done'])->default('Progress');

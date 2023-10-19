@@ -17,9 +17,7 @@ return new class extends Migration
             $table->foreignId('stock_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('packaging');
             $table->string('unit');
-            $table->integer('qty');
             $table->decimal('unit_price', 15,2);
-            $table->decimal('total_price', 15,2);
             $table->timestamps();
         });
     }

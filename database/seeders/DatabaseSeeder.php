@@ -3,6 +3,9 @@
 namespace Database\Seeders;
 
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+
+use Database\Seeders\Authentication\UserSeeder;
+use Database\Seeders\Setting\PositionSeeder;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,9 +22,11 @@ class DatabaseSeeder extends Seeder
         //     'email' => 'test@example.com',
         // ]);
         $this->call([
+            PositionSeeder::class,
             BranchSeeder::class,
             CustomerSeeder::class,
             StockSeedeer::class,
+            UserSeeder::class,
         ]);
     }
 }

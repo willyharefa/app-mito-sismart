@@ -18,8 +18,8 @@ class PenetrationController extends Controller
      */
     public function index()
     {
-        $penetrations = Penetration::with('prospect', 'branch')->get();
-        $prospects = Prospect::with('customer', 'branch')->where('status_prospect', 'Introduction')->get();
+        $penetrations = Penetration::with('prospect', 'branch')->latest()->get();
+        $prospects = Prospect::with('customer', 'branch')->where('status_prospect', 'Introduction')->latest()->get();
         return view('pages.activity.penetration.penetration', [
             'state_menu' => 'activity',
             'menu_title' => 'Menu Penetration',
@@ -50,11 +50,7 @@ class PenetrationController extends Controller
                 return redirect()->back()->withErrors($validatedData)->withInput();
             }
 
-            $getDate = Carbon::now()->format('Y/m');
-            $request['code_penetration'] = 'PEN/PKU/'. $getDate.'/'.rand(1, 999);
-
             Penetration::create([
-                'code_penetration' => $request->code_penetration,
                 'prospect_id' => $request->prospect_id,
                 'date_penetration' => $request->date_penetration,
                 'remark' => $request->remark,

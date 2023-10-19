@@ -17,8 +17,8 @@ class QuotationController extends Controller
      */
     public function index()
     {
-        $quotations = Quotation::with('prospect', 'branch')->where('branch_id', 1)->get();
-        $prospects = Prospect::with('customer', 'branch')->where('status_prospect', 'Jartest')->get();
+        $quotations = Quotation::with('prospect', 'branch')->where('branch_id', 1)->latest()->get();
+        $prospects = Prospect::with('customer', 'branch')->where('status_prospect', 'Jartest')->latest()->get();
         return view('pages.activity.Quotation.quotation', [
             'state_menu' => 'activity',
             'menu_title' => 'Menu Quotation',
@@ -38,6 +38,7 @@ class QuotationController extends Controller
      */
     public function store(Request $request)
     {
+        $quotation = Quotation::latest()->first();
         try {
             $validatedData = Validator::make($request->all(), [
                 'prospect_id' => ['required'],
@@ -52,11 +53,17 @@ class QuotationController extends Controller
                 return redirect()->back()->withErrors($validatedData)->withInput();
             }
 
-            $getDate = Carbon::now()->format('Y/m');
-            $request['code_quotation'] = 'QUO/PKU/'. $getDate.'/'.rand(1, 999);
+            // No Quotation = QUOPKU230001
+            if ( $quotation == null ) {
+                $generateNo = "0001";
+            } else {
+                $generateNo = substr($quotation->quotation_no, 8, 4) + 1;
+                $generateNo = str_pad($generateNo, 4, "0", STR_PAD_LEFT);
+            }
+            $quotationNo = "QUOPKU" . date('y') . $generateNo;
 
-            Quotation::create([
-                'code_quotation' => $request->code_quotation,
+            $newData = Quotation::create([
+                'quotation_no' => $quotationNo,
                 'prospect_id' => $request->prospect_id,
                 'no_sp' => $request->no_sp,
                 'category_quotation' => $request->category,
@@ -70,7 +77,8 @@ class QuotationController extends Controller
 
             Jartest::where('prospect_id', $request->prospect_id)->update(['status_jartest' => 'Done']);
 
-            return redirect()->back()->with('success', 'Data has been added ✅');
+            // return redirect()->back()->with('success', 'Data has been added ✅');
+            return redirect()->route('showItemsQuotation', ['quotationId' => $newData->id])->with('success', 'Data has been added ✅');
 
         } catch(\Exception $e) {
             return view('components.errors.400', [

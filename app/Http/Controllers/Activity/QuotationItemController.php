@@ -17,12 +17,7 @@ class QuotationItemController extends Controller
      */
     public function index()
     {
-        // $stocks = Stock::with('branch')->where('branch_id', 1)->get();
-        // $quotations = Quotation::with('prospect', 'branch')->where('branch_id', 1)->get();
-        // return view('pages.activity.Quotation.quotationItem', [
-        //     'state_menu' => 'activity',
-        //     'menu_title' => 'Quotation Items',
-        // ], compact('quotations', 'prospects', 'stocks'));
+        
     }
 
     /**
@@ -38,16 +33,12 @@ class QuotationItemController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->all());
         try {
             $validatedData = Validator::make($request->all(), [
                 'stock_id' => ['required'],
                 'packaging' => ['required'],
                 'unit' => ['required'],
-                'qty' => ['required'],
                 'unit_price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
-                'total_price' => ['required', 'numeric', 'regex:/^\d+(\.\d{1,2})?$/'],
-                // 'remark' => ['required'],
             ]);
 
             if($validatedData->fails()) {
@@ -59,9 +50,7 @@ class QuotationItemController extends Controller
                 'stock_id' => $request->stock_id,
                 'packaging' => $request->packaging,
                 'unit' => $request->unit,
-                'qty' => $request->qty,
-                'unit_price' => $request->unit_price,
-                'total_price' => $request->total_price
+                'unit_price' => $request->unit_price
             ]);
 
             return redirect()->back()->with('success', 'Data has been added ✅');

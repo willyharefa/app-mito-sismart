@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('quotations', function (Blueprint $table) {
             $table->id();
-            $table->string('code_quotation')->unique();
+            $table->string('quotation_no')->unique();
             $table->foreignId('prospect_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('no_sp');
             $table->enum('category_quotation', ['Franco', 'Loco']);

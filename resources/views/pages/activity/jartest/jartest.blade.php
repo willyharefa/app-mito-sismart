@@ -20,12 +20,12 @@
                     @csrf
                     @method('POST')
                     <div class="col-md-4">
-                        <label for="prospect_id" class="form-label">Code Prospect</label>
+                        <label for="prospect_id" class="form-label">Customer</label>
                         <select class="form-select select2-bootstrap-5" id="prospect_id" name="prospect_id"
-                            data-placeholder="Type for search..." required>
+                            data-placeholder="Choose customer..." required>
                             <option></option>
                             @foreach ($prospects as $prospect)
-                                <option value="{{ $prospect->id }}">{{ $prospect->code_prospect }}</option>
+                                <option value="{{ $prospect->id }}">{{ $prospect->code_prospect .' | '. $prospect->customer->name_customer }}</option>
                             @endforeach
                         </select>
                     </div>
@@ -68,8 +68,8 @@
                         <thead>
                             <tr>
                                 <th data-priority="0">#</th>
-                                <th data-priority="1">Code Jartest</th>
-                                <th data-priority="2">Code Prospect</th>
+                                <th data-priority="1">ID Project</th>
+                                <th data-priority="2">Customer</th>
                                 <th data-priority="7">Product Jartest</th>
                                 <th data-priority="3">Date Jartest</th>
                                 <th data-priority="6">Remarks</th>
@@ -81,13 +81,12 @@
                             @foreach ($jartests as $key => $jartest)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $jartest->code_jartest }}</td>
                                     <td>
                                         <a href="javascript:void(0)">
                                             {{ $jartest->prospect->code_prospect }}
-                                        </a>
-                                        
+                                        </a> 
                                     </td>
+                                    <td>{{ $jartest->prospect->customer->name_customer }}</td>
                                     <td>{{ $jartest->stock->name_stock }}</td>
                                     <td>{{ $jartest->date_jartest->format('d/m/Y') }}</td>
                                     <td>{{ $jartest->remark }}</td>

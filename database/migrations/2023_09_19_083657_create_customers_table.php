@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('contact');
             $table->string('pic_customer');
             $table->string('pic_status');
-            $table->string('email');
+            $table->string('email')->nullable();
             $table->foreignId('branch_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->string('pic_sales');
             $table->string('city');

@@ -26,7 +26,7 @@
                 <small class="text-muted float-end">Information Quotation</small>
             </div>
             <div class="card-body">
-                <div class="row g-2">
+                <div class="row g-3">
                     <div class="col-md-4">
                         <label for="customer" class="form-label">Customer</label>
                         <input type="text" readonly class="form-control" id="customer"
@@ -98,37 +98,23 @@
                             </select>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md">
                             <label for="packaging" class="form-label">Packaging</label>
                             <input type="text" class="form-control" id="packaging" readonly name="packaging"
                                 placeholder="25Kg/Sak" required>
                         </div>
 
-                        <div class="col-md-4">
+                        <div class="col-md">
                             <label for="unit" class="form-label">Unit</label>
                             <input type="text" class="form-control" id="unit" readonly name="unit"
                                 placeholder="Kg" required>
                         </div>
-                        <div class="col-md-4">
-                            <label for="qty" class="form-label">QTY</label>
-                            <input type="number" class="form-control numericInput" id="qty" name="qty"
-                                value="0" required>
-                        </div>
-                        <div class="col-md-4">
+                        <div class="col-md">
                             <label for="unit_price" class="form-label">Unit/Price</label>
                             <div class="input-group mb-3">
                                 <span class="input-group-text">Rp</span>
                                 <input type="text" class="form-control numericInput" id="unit_price" value="0"
                                 name="unit_price" placeholder="10.000" required>
-                            </div>
-                                  
-                        </div>
-                        <div class="col-md-4">
-                            <label for="total_price" class="form-label">Total Price</label>
-                            <div class="input-group mb-3">
-                                <span class="input-group-text">Rp</span>
-                                <input type="text" class="form-control numericInput" readonly id="total_price" value="0"
-                                name="total_price" placeholder="10.000" value="0" required>
                             </div>
                         </div>
                         <div class="col-12">
@@ -149,13 +135,10 @@
                         <thead>
                             <tr>
                                 <th data-priority="0">#</th>
-                                <th data-priority="8">Quotation ID</th>
                                 <th data-priority="1">Product</th>
                                 <th data-priority="2">Packaging</th>
-                                <th data-priority="6">QTY</th>
                                 <th data-priority="6">Unit</th>
                                 <th data-priority="4">Price</th>
-                                <th data-priority="5">Total Price</th>
                                 <th data-priority="3">Actions</th>
                             </tr>
                         </thead>
@@ -163,13 +146,10 @@
                             @foreach ($quotationItems as $key => $item)
                                 <tr>
                                     <td>{{ $loop->iteration }}</td>
-                                    <td>{{ $item->quotation->code_quotation }}</td>
                                     <td>{{ $item->stock->name_stock }}</td>
                                     <td>{{ $item->packaging }}</td>
-                                    <td>{{ $item->qty }}</td>
                                     <td>{{ $item->unit }}</td>
                                     <td>{{ 'Rp '. number_format($item->unit_price, 2, ',', '.')}}</td>
-                                    <td>{{ 'Rp '. number_format($item->total_price, 2, ',', '.')}}</td>
                                     <td>
                                         @if ($quotation->status_quotation == 'Draf')
                                             <form action="{{ route('quotation-item.destroy', $item->id) }}"
@@ -238,24 +218,5 @@
                 element.value = sanitizedValue;
             });
         });
-    </script>
-
-    <script>
-        var qtyInput = document.getElementById("qty");
-        var unitPriceInput = document.getElementById("unit_price");
-        var totalPriceInput = document.getElementById("total_price");
-
-        // Function to calculate the total
-        function calculateTotal() {
-            var qty = parseFloat(qtyInput.value) || 0;
-            var unitPrice = parseFloat(unitPriceInput.value) || 0;
-
-            var total = qty * unitPrice;
-            totalPriceInput.value = total.toFixed(2); // Display the total with two decimal places
-        }
-
-        // Add event listeners to qty and price inputs to trigger calculation
-        qtyInput.addEventListener("input", calculateTotal);
-        unitPriceInput.addEventListener("input", calculateTotal);
     </script>
 @endpush

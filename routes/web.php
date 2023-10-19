@@ -8,11 +8,13 @@ use App\Http\Controllers\Activity\NegotiationController;
 use App\Http\Controllers\Activity\PenetrationController;
 use App\Http\Controllers\Activity\QuotationController;
 use App\Http\Controllers\Activity\QuotationItemController;
+use App\Http\Controllers\Authentication\UserController;
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Partner\CustomerController;
 use App\Http\Controllers\Partner\VendorController;
 use App\Http\Controllers\Project\ProspectController;
 use App\Http\Controllers\Setting\BranchController;
+use App\Http\Controllers\Setting\PositionController;
 use App\Http\Controllers\Setting\TypeCustomerController;
 use App\Http\Controllers\Setting\TypeProgressController;
 use App\Http\Controllers\StockController;
@@ -56,9 +58,10 @@ Route::put('/quotation-status/{quotationId}', [QuotationController::class, 'upda
 Route::resource('quotation-item', QuotationItemController::class);
 Route::get('/quotation-item/{quotationId}/show', [QuotationItemController::class, 'showItemsQuotation'])->name('showItemsQuotation');
 
-Route::resource('negotiation', NegotiationController::class);
 Route::resource('deal', DealController::class);
 
 
 Route::get('/product/{id}', [Controller::class, 'getProductId'])->name('getProductId');
 Route::get('/quotation/{id}/show', [Controller::class, 'getIdProspect'])->name('getIdProspect');
+Route::resource('user', UserController::class);
+Route::resource('position', PositionController::class);

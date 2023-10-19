@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('jartests', function (Blueprint $table) {
             $table->id();
-            $table->string('code_jartest')->unique();
             $table->foreignId('prospect_id')->unique()->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->foreignId('stock_id')->unique()->constrained()->cascadeOnUpdate()->cascadeOnUpdate();
             $table->date('date_jartest');

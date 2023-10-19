@@ -1,0 +1,38 @@
+// Script untuk mengkalkulasikan qty * harga satuan;
+<script>
+        let numericInput = document.querySelectorAll(".numericInput");
+        numericInput.forEach(element => {
+            element.addEventListener("input", function() {
+                // Remove non-numeric and non-decimal point characters using a regular expression
+                var sanitizedValue = element.value.replace(/[^0-9.]/g, '');
+
+                // Ensure there's only one decimal point
+                var decimalCount = sanitizedValue.split('.').length - 1;
+                if (decimalCount > 1) {
+                    sanitizedValue = sanitizedValue.substring(0, sanitizedValue.lastIndexOf('.'));
+                }
+
+                // Update the input field with the sanitized value
+                element.value = sanitizedValue;
+            });
+        });
+    </script>
+
+    <script>
+        var qtyInput = document.getElementById("qty");
+        var unitPriceInput = document.getElementById("unit_price");
+        var totalPriceInput = document.getElementById("total_price");
+
+        // Function to calculate the total
+        function calculateTotal() {
+            var qty = parseFloat(qtyInput.value) || 0;
+            var unitPrice = parseFloat(unitPriceInput.value) || 0;
+
+            var total = qty * unitPrice;
+            totalPriceInput.value = total.toFixed(2); // Display the total with two decimal places
+        }
+
+        // Add event listeners to qty and price inputs to trigger calculation
+        qtyInput.addEventListener("input", calculateTotal);
+        unitPriceInput.addEventListener("input", calculateTotal);
+    </script>
