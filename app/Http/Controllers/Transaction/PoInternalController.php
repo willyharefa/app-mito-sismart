@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Transaction;
 use App\Http\Controllers\Controller;
 use App\Models\Transaction\PoInternal;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
 
 class PoInternalController extends Controller
 {
@@ -32,7 +33,23 @@ class PoInternalController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request->all());
+        try {
+            $validatorData = Validator::make($request->all(), [
+                'po_internal' => ['required', 'unique:po_internals'],
+                'name_customer' => ['required'],
+                'date_po_in' => ['required'],
+                'sales' => ['required']
+            ]);
+
+            if($validatorData->fails()) {
+                return redirect()->back()->withErrors($validatorData)->withInput();
+            }
+
+            
+        } catch (\Throwable $th) {
+            //throw $th;
+        }
     }
 
     /**

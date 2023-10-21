@@ -135,8 +135,8 @@
         <div class="card">
             <h5 class="card-header">Data Deals</h5>
             <div class="card-body">
-                <div class="text-nowrap">
-                    <table class="table table-bordered table-branches" id="table" style="width:100%">
+                <div class="text-nowrap table-responsive">
+                    <table class="table table-bordered" id="table" style="width:100%">
                         <thead>
                             <tr>
                                 <th data-priority="0">#</th>
@@ -150,7 +150,39 @@
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($deals as $deal)
+                                <tr>
+                                    <td>{{ $loop->iteration }}</td>
+                                    <td>{{ $deal->code_deal }}</td>
+                                    <td>{{ $deal->quotation->code_quotation }}</td>
+                                    <td>{{ $deal->prospect->code_prospect }}</td>
+                                    <td>{{ $deal->no_po }}</td>
+                                    <td>{{ $deal->remark }}</td>
+                                    <td>{{ $deal->status_deal }}</td>
+                                    <td>
+                                        <a class="btn btn-icon btn-outline-primary"
+                                            href="{{ route('deal.show', $deal->id) }}" title="Open">
+                                            <span class="tf-icons bx bx-info-circle"></span>
+                                        </a>
+
+                                        <a class="btn btn-icon btn-outline-primary"
+                                            href="{{ route('deal.edit', $deal->id) }}" title="Edit">
+                                            <span class="tf-icons bx bx-message-square-edit"></span>
+                                        </a>
+
+                                        <form action="{{ route('deal.destroy', $deal->id) }}"
+                                            class="d-inline-block form-destroy" method="POST">
+                                            @csrf
+                                            @method('DELETE')
+                                            <button type="submit" class="btn btn-icon btn-outline-danger">
+                                                <span class="tf-icons bx bx-trash-alt"></span>
+                                            </button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            @endforeach
                         </tbody>
+                            
                     </table>
                 </div>
             </div>

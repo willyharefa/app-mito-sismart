@@ -4,6 +4,7 @@ namespace App\Models\Partner;
 
 use App\Models\Projects\Prospect;
 use App\Models\Setting\Branch;
+use App\Models\Transaction\PoInternal;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -23,5 +24,9 @@ class Customer extends Model
     public function prospect(): BelongsTo
     {
         return $this->belongsTo(Prospect::class, 'id', 'customer_id');
+    }
+    public function poInternal(): BelongsTo
+    {
+        return $this->belongsTo(PoInternal::class, 'id', 'customer_id');
     }
 }

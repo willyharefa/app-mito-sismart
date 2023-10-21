@@ -58,6 +58,7 @@ Route::get('/quotation-item/{quotationId}/show', [QuotationItemController::class
 
 Route::resource('negotiation', NegotiationController::class);
 Route::resource('deal', DealController::class);
+Route::get('/deal/detil-deal/{dealID}/{quotationID}', [DealController::class, 'showDetailDeal'])->name('showDetailDeal');
 
 
 Route::get('/product/{id}', [Controller::class, 'getProductId'])->name('getProductId');

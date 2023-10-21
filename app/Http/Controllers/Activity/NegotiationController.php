@@ -133,6 +133,21 @@ class NegotiationController extends Controller
      */
     public function destroy(Negotiation $negotiation)
     {
-        //
+        try {
+            Prospect::find($negotiation->prospect_id)->update([
+                'status_prospect' => 'Quotation',
+            ]);
+            Quotation::where('prospect_id', $negotiation->prospect_id)->update([
+                'status_quotation' => 'Draf'
+            ]);
+            $negotiation->delete();
+            return redirect()->back()->with('success', 'Data has been deleted 🚀');
+        } catch (\Exception $th) {
+            return view('components.errors.400', [
+                'message' => 'Something went wrong, Please try again.',
+                'route' => 'quotation.index',
+                'title' => 'Bad Request'
+            ]);
+        }
     }
 }

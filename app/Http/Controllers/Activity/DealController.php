@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Activity;
 use App\Http\Controllers\Controller;
 use App\Models\Activity\Deal;
 use App\Models\Activity\Negotiation;
+use App\Models\Activity\Quotation;
+use App\Models\Activity\QuotationItem;
 use App\Models\Partner\Customer;
 use App\Models\Projects\Prospect;
 use Carbon\Carbon;
@@ -20,10 +22,11 @@ class DealController extends Controller
     {
         $customers = Customer::with('branch')->get();
         $prospects = Prospect::with('customer', 'branch')->where('status_prospect', 'Negotiation')->get();
+        $deals = Deal::with('prospect', 'branch', 'quotation')->get();
         return view('pages.activity.deals.deal', [
             'state_menu' => 'activity',
             'menu_title' => 'Menu Deals',
-        ], compact('prospects', 'customers'));
+        ], compact('prospects', 'customers', 'deals'));
     }
 
     /**
@@ -88,7 +91,10 @@ class DealController extends Controller
      */
     public function show(Deal $deal)
     {
-        //
+        return view('pages.activity.deals.viewDeal', [
+            'state_menu' => 'activity',
+            'menu_title' => 'Menu Deals',
+        ]);
     }
 
     /**
@@ -113,5 +119,14 @@ class DealController extends Controller
     public function destroy(Deal $deal)
     {
         //
+    }
+
+    public function showDetailDeal(Deal $deal, $quotationId)
+    {
+        $quotationItems = QuotationItem::where('quotation_id', $quotationId)->with('stock')->get();
+        return view('pages.activity.deals.viewDeal', [
+            'state_menu' => 'activity',
+            'menu_title' => 'Detail Deal',
+        ], compact('quotationItems', 'deal'));
     }
 }

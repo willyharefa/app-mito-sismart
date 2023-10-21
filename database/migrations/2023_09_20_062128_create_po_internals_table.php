@@ -13,6 +13,12 @@ return new class extends Migration
     {
         Schema::create('po_internals', function (Blueprint $table) {
             $table->id();
+            $table->string('code_po_in')->unique();
+            $table->foreignId('customer_id');
+            $table->date('date_po_in');
+            $table->string('status_po_in');
+            $table->string('sales');
+            $table->foreignId('branch_id')->constrained()->cascadeOnUpdate()->cascadeOnDelete();
             $table->timestamps();
         });
     }

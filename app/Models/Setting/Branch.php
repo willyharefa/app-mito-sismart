@@ -10,6 +10,7 @@ use App\Models\Activity\Penetration;
 use App\Models\Activity\Quotation;
 use App\Models\Inventory\Stock;
 use App\Models\Projects\Prospect;
+use App\Models\Transaction\PoInternal;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -65,5 +66,10 @@ class Branch extends Model
     public function deal(): BelongsTo
     {
         return $this->belongsTo(Deal::class, 'id', 'branch_id');
+    }
+
+    public function poInternal(): BelongsTo
+    {
+        return $this->belongsTo(PoInternal::class, 'id', 'branch_id');
     }
 }

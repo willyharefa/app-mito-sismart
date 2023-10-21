@@ -6,7 +6,9 @@
         {{-- Form PO Internal --}}
         <div class="card mb-4">
             <div class="card-body">
-                <form class="row g-3">
+                <form class="row g-3 needs-validation form-create" method="POST">
+                    @csrf
+                    @method('POST')
                     <div class="col-md-3">
                         <label for="po_internal" class="form-label">No PO Internal</label>
                         <input type="text" class="form-control" id="po_internal" name="po_internal"
@@ -20,6 +22,10 @@
                     <div class="col-md">
                         <label for="date_po_in" class="form-label">Date</label>
                         <input type="date" class="form-control" id="date_po_in" name="date_po_in" required>
+                    </div>
+                    <div class="col-md">
+                        <label for="sales" class="form-label">Sales</label>
+                        <input type="text" class="form-control" id="sales" name="sales" required>
                     </div>
                     <div class="col-12">
                         <button type="submit" class="btn btn-primary">Create PO In</button>

@@ -276,7 +276,7 @@
 
                     {{-- Setting --}}
                     <li class="menu-header small text-uppercase">
-                        <span class="menu-header-text">Environment</span>
+                        <span class="menu-header-text">Tools</span>
                     </li>
 
                     <li class="menu-item {{ $state_menu == "setting" ? "active open" : "" }}">
@@ -293,12 +293,17 @@
                             </li>
                             <li class="menu-item {{ $menu_title == "Type Customer Setting" ? "active bx-flashing" : "" }}">
                                 <a href="{{ route('type-customer.index') }}" class="menu-link">
-                                    <div>Type Customers</div>
+                                    <div>Customers</div>
                                 </a>
                             </li>
                             <li class="menu-item {{ $menu_title == "Type Progress Setting" ? "active bx-flashing" : "" }}">
                                 <a href="{{ route('type-progress.index') }}" class="menu-link">
-                                    <div>Type Progress</div>
+                                    <div>Progress</div>
+                                </a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="" class="menu-link">
+                                    <div>Sales</div>
                                 </a>
                             </li>
                         </ul>
