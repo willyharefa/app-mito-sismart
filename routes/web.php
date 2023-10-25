@@ -9,6 +9,8 @@ use App\Http\Controllers\Activity\PenetrationController;
 use App\Http\Controllers\Activity\QuotationController;
 use App\Http\Controllers\Activity\QuotationItemController;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Inventory\PricelistController;
+use App\Http\Controllers\Management\CityController;
 use App\Http\Controllers\Partner\CustomerController;
 use App\Http\Controllers\Partner\VendorController;
 use App\Http\Controllers\Project\ProspectController;
@@ -36,7 +38,9 @@ Route::get('/', function () {
     return view('components.app.layouts');
 });
 
+Route::resource('city', CityController::class);
 Route::resource('stocks', StockController::class);
+Route::resource('pricelist', PricelistController::class);
 Route::resource('customer', CustomerController::class);
 Route::resource('vendor', VendorController::class);
 Route::resource('branch', BranchController::class);

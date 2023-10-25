@@ -17,6 +17,11 @@ class Stock extends Model
     protected $guarded = ['id'];
     protected $tables = 'stocks';
 
+    public function pricelist(): BelongsTo
+    {
+        return $this->belongsTo(Pricelist::class, 'id', 'stock_id');
+    }
+    
     public function branch(): HasOne
     {
         return $this->hasOne(Branch::class, 'id', 'branch_id');

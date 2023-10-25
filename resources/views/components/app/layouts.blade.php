@@ -149,7 +149,7 @@
                             </li>
                             <li class="menu-item">
                                 <a href="javascript:void(0);" class="menu-link">
-                                    <div data-i18n="Without navbar">Adjustment</div>
+                                    <div data-i18n="Without navbar">Pricelist</div>
                                 </a>
                             </li>
                             <li class="menu-item">
@@ -334,6 +334,27 @@
                         </ul>
                     </li>
                     {{-- End Setting --}}
+
+                    {{-- Administrator --}}
+                    <li class="menu-header small text-uppercase">
+                        <span class="menu-header-text">Administrator</span>
+                    </li>
+
+                    <li class="menu-item {{ $state_menu == "management" ? "active open" : "" }}">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            <i class="menu-icon tf-icons bx bx-folder"></i>
+                            <div>Data Management</div>
+                        </a>
+
+                        <ul class="menu-sub">
+                            <li class="menu-item {{ $menu_title == "Menu City" ? "active bx-flashing" : "" }}">
+                                <a href="{{ route('city.index') }}" class="menu-link">
+                                    <div>City</div>
+                                </a>
+                            </li>
+                        </ul>
+                    </li>
+                    {{-- End Administrator --}}
                 </ul>
             </aside>
             <!-- / Menu -->
